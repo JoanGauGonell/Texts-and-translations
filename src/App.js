@@ -1,24 +1,39 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import { useTranslation } from 'react-i18next';
+import { Suspense } from 'react';
+import "./config/i18next.config";
+import Header from './components/Header';
+import './styles/elements/Body.css';
+import CrowdinPage from './components/CrowdinPage';
+import TransifexPage from './components/TransifexPage';
+import LocalisePage from './components/LocalisePage';
+import PhrasePage from './components/PhrasePage';
+
+function Translations(){
+  const {t} = useTranslation(["translations"])
+  return (
+    <div className='Body'>
+      <div>
+        <h1>{t('title')}</h1>
+         <p>{t('internacionalizacion')}</p>
+         <p>{t('ventajas')}</p>
+       </div>
+        <CrowdinPage />
+        <TransifexPage />
+        <LocalisePage />
+        <PhrasePage />
+    </div>
+    
+  );
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Suspense fallback="cargando...">
+      <Header />
+      <Translations />
+    </Suspense>
   );
 }
 
