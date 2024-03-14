@@ -1,5 +1,5 @@
 {
-    "title": "i18next traducciones",
+    "title": "i18next traductions",
     "internacionalizacion": "L'internationalisation, souvent abrégée en « i18n » (où « i » représente l'initiale, « n » la finale et « 18 » le nombre de lettres qui les séparent), est le processus de développement de produits logiciels de telle manière qu'ils puissent être adaptés. facilement dans différentes langues et régions sans nécessiter de modifications du code source. L'objectif d'i18n est de rendre les logiciels universellement accessibles et utilisables, quelle que soit la langue utilisée par l'utilisateur ou les conventions culturelles de la région.",
     "ventajas": "Avantages : Facilité d'utilisation, support pour les pluralisations, interpolations et chargement dynamique des traductions.",
     "Crowdin": "Crowdin",
