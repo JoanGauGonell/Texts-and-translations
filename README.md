@@ -1,70 +1,98 @@
-# Getting Started with Create React App
+# Texts and translations management on new UI
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## i18next
+i18next is a highly used internationalization library for JavaScript in web applications to facilitate the translation of texts into different languages. It provides a complete solution to manage localization in JavaScript projects including Node.js and the browser. It allows developers to separate texts and translation strings from the source code by organizing them into specific language files, which makes managing multiple languages in a project easier. i18next is compatible with several frontend frameworks such as React, Angular, and Vue through specific plugins or modules, which facilitates its integration into various application architectures.
 
-## Available Scripts
 
-In the project directory, you can run:
+### i18next Configuration File
 
-### `npm start`
+<img width="1046" alt="image" src="https://github.com/JoanGauGonell/Texts-and-translations/assets/100577733/b0b130bc-d390-4d67-b2bd-d710a2c930c7">
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1.- import i18n from 'i18next': Here, the main module of i18next is being imported, which is used to instantiate the internationalization service.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2.- import LanguageDetector from 'i18next-browser-languagedetector': This imports the language detector that allows i18next to detect the user's language through the browser, for example, by looking in the browser's language settings or in a cookie.
 
-### `npm test`
+3.- import translationsEN from './locales/en/translations.json': Here, the translations for English are imported from a specific JSON file containing the translated texts.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4.- import HttpBackend from 'i18next-http-backend': This imports a backend for i18next that allows loading translations from a remote server. This is useful if you want to load translations dynamically rather than including them as static files in your project. It can load translation resources from a server endpoint each time a language or namespace that has not yet been loaded is needed.
 
-### `npm run build`
+5.-const resources: This is an object that defines the available translation resources, structured by language and then by namespace (translations in this case). Each language has its own object that refers to the imports of the corresponding JSON files.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+6.-i18n.use(initReactI18next): This indicates that i18next should use the initReactI18next plugin, which initializes i18next to be compatible with React.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+7.-i18n.init(): This method starts the i18next object with the provided configuration. Here, various parameters are configured, such as resources (the languages and available translations), the fallback language, and the language detection behavior.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+8.-detection: Within the init method, this object configures the language detection options. It defines the order in which i18next will search for the user's language, such as in the query string, cookies, local storage, HTML tags, and whether to detect the subdomain as a language.
 
-### `npm run eject`
+9.-order: ['queryString', 'cookie', ...]: This is part of the language detection configuration and specifies the order of the language detection methods that i18next will try to use. For example, it will first look for a query in the URL (queryString), then in cookies, etc.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### JSON File Structure: 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Make sure the JSON file is well-formed and follows the key-value structure that i18next expects. Each key represents a translation identifier, and each value is the corresponding translation.
+json.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+{
+  "key": "Text to translate”
+}
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Organization of the Files:
+The JSON files are organized in folders representing each supported language.
 
-## Learn More
+/locales
+ 	 /en
+   	  translation.json
+ /es
+  translation.json
+ 	 /de
+   	  translation.json
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Importing the Translation Function in the React Component:
+You should import the t function from i18next or from the useTranslation hook if you are using React.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+import { withTranslation } from 'react-i18next';
 
-### Code Splitting
+Use the t function to obtain the text string translated corresponding to the specified key.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<img width="655" alt="image" src="https://github.com/JoanGauGonell/Texts-and-translations/assets/100577733/b0b3fe00-572c-4af4-a074-e692b993882b">
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+## Localization Management Platform
+### Crowdin:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+CrowdIn is a cloud-based localization platform that allows developers and content creators to manage the multilingual translation of their projects. It is widely used for software projects, games, mobile applications, websites, and related content.
 
-### Advanced Configuration
+The platform allows online collaboration of translators, enabling multiple contributors to work simultaneously on the translation and localization of content. CrowdIn integrates quality control tools, glossaries, and translation memories to ensure the consistency and quality of translations. It also offers integrations with version control systems such as Git, which facilitates the synchronization of localization files with the project's source code.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+With CrowdIn, users can upload files with text strings (such as .json, .xml, .strings files, etc.), and then these files can be translated on the platform by human translators or with the help of automatic translation. The platform also provides automation and workflow features to optimize the localization process and make the translation lifecycle more efficient.
 
-### Deployment
+#### Integration of Crowdin with Github:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+<img width="916" alt="image" src="https://github.com/JoanGauGonell/Texts-and-translations/assets/100577733/5dfce0d7-72ab-49c9-a4b1-38f22efe99b2">
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Source: Defines the path and source file that contains the strings to be translated. For example, /src/locales/en/translations.json is the path to the English translation file that will be used as a base for other languages.
+
+Translation: This line specifies the path and name of the file that will be generated for each language after translation. The parts {%lng} and {%ns} are variables; {%lng} will be replaced by the language code (like 'es' for Spanish, 'de' for German, etc.) and {%ns} by the namespace if namespaces are used to organize translations. So /locales/{%lng}/{%ns}.json indicates where and how the translations will be saved.
+
+Multilingual: If set to 1, it indicates that the project is multilingual and therefore will manage several translations for different languages.
+This is part of the configuration for integrating CrowdIn with a code repository, allowing the automation of the localization process. For example, each time the source file is updated, CrowdIn can detect those changes and make the new strings available for translation automatically. Similarly, completed translations can be synchronized back to the repository.
+When you save this configuration, a crowdin.yml file is created or updated in the specified branch (in this case, it seems to be the master branch). This file is used by CrowdIn to understand how to manage translations for the project.
+
+### Localise:
+Localise is a platform designed to streamline the localization process for digital products like apps, games, and websites. It provides an environment where developers, translators, and project managers can collaborate to translate text content into various languages.
+
+The platform simplifies the process by offering features like an online editor, where translations can be edited and reviewed in real-time. Localise supports automated translations, which can serve as a starting point for human translators to refine. It also integrates with version control systems to synchronize content with your codebase efficiently.
+Localise's workflow management allows for setting up custom workflows, defining roles and permissions, and automating repetitive tasks with webhooks and APIs. This enables a seamless process from content creation to translation and deployment.
+
+By uploading text strings in formats like JSON, XML, or other localization file formats, Localise organizes the content into projects. Translators can work directly within the platform, using glossaries and style guides to ensure consistency and quality across languages.
+
+In terms of integration, Localise offers SDKs and API access for dynamic content localization, making it possible to fetch translations on-the-fly without the need to redeploy your application. This can significantly speed up the process of updating text across different languages and markets.
+
+### Open source localization management platforms
+#### Weblate: 
+A web-based localization tool with a user-friendly interface that allows contributors to participate in the translation of projects. It offers version control system integration and features such as translation job management and quality checks.
+
+#### Pootle: 
+An online platform that enables translation teams to collaborate on software localization and other projects. It includes features like translation suggestions, translation memories, and contribution reviews.
+
